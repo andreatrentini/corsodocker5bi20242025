@@ -1,6 +1,6 @@
-# corsodocker5bi20242025
+# Corso docker e webservices 5Bi 2024/2025
 
-
+## Docker
 Docker è una piattaforma di virtualizzazione a livello di sistema operativo, conosciuta anche come "containerizzazione". Permette agli sviluppatori di impacchettare un'applicazione con tutte le parti necessarie, come librerie e dipendenze, e distribuirla come un unico pacchetto o container. Questo container può essere eseguito su qualsiasi sistema che ha Docker installato, indipendentemente dall'ambiente sottostante, il che aiuta ad eliminare il problema del "funziona sul mio computer".
 
 Alcune caratteristiche chiave di Docker includono:
@@ -12,91 +12,12 @@ Alcune caratteristiche chiave di Docker includono:
 
 Docker è ampiamente utilizzato per lo sviluppo di applicazioni, il testing, e la produzione, offrendo un modo consistente e affidabile per eseguire il software.
 
-## Output docker
+## Guida ai Comandi Principali di Docker
 
-Usage:  docker [OPTIONS] COMMAND
-
-A self-sufficient runtime for containers
-
-Common Commands:
-  run         Create and run a new container from an image  
-  exec        Execute a command in a running container  
-  ps          List containers  
-  build       Build an image from a Dockerfile  
-  pull        Download an image from a registry  
-  push        Upload an image to a registry  
-  images      List images  
-  login       Log in to a registry  
-  logout      Log out from a registry  
-  search      Search Docker Hub for images  
-  version     Show the Docker version information  
-  info        Display system-wide information  
-
-Management Commands:
-  builder     Manage builds
-  buildx*     Docker Buildx
-  compose*    Docker Compose
-  container   Manage containers
-  context     Manage contexts
-  image       Manage images
-  manifest    Manage Docker image manifests and manifest lists
-  network     Manage networks
-  plugin      Manage plugins
-  system      Manage Docker
-  trust       Manage trust on Docker images
-  volume      Manage volumes
-
-Swarm Commands:
-  swarm       Manage Swarm
-
-Commands:
-  attach      Attach local standard input, output, and error streams to a running container
-  commit      Create a new image from a container's changes
-  cp          Copy files/folders between a container and the local filesystem
-  create      Create a new container
-  diff        Inspect changes to files or directories on a container's filesystem
-  events      Get real time events from the server
-  export      Export a container's filesystem as a tar archive
-  history     Show the history of an image
-  import      Import the contents from a tarball to create a filesystem image
-  inspect     Return low-level information on Docker objects
-  kill        Kill one or more running containers
-  load        Load an image from a tar archive or STDIN
-  logs        Fetch the logs of a container
-  pause       Pause all processes within one or more containers
-  port        List port mappings or a specific mapping for the container
-  rename      Rename a container
-  restart     Restart one or more containers
-  rm          Remove one or more containers
-  rmi         Remove one or more images
-  save        Save one or more images to a tar archive (streamed to STDOUT by default)
-  start       Start one or more stopped containers
-  stats       Display a live stream of container(s) resource usage statistics
-  stop        Stop one or more running containers
-  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
-  top         Display the running processes of a container
-  unpause     Unpause all processes within one or more containers
-  update      Update configuration of one or more containers
-  wait        Block until one or more containers stop, then print their exit codes
-
-Global Options:
-      --config string      Location of client config files (default "/home/codespace/.docker")
-  -c, --context string     Name of the context to use to connect to the daemon (overrides DOCKER_HOST env var and default context set with "docker context use")
-  -D, --debug              Enable debug mode
-  -H, --host list          Daemon socket to connect to
-  -l, --log-level string   Set the logging level ("debug", "info", "warn", "error", "fatal") (default "info")
-      --tls                Use TLS; implied by --tlsverify
-      --tlscacert string   Trust certs signed only by this CA (default "/home/codespace/.docker/ca.pem")
-      --tlscert string     Path to TLS certificate file (default "/home/codespace/.docker/cert.pem")
-      --tlskey string      Path to TLS key file (default "/home/codespace/.docker/key.pem")
-      --tlsverify          Use TLS and verify the remote
-  -v, --version            Print version information and quit
-
-Run 'docker COMMAND --help' for more information on a command.
-
-For more help on how to use Docker, head to https://docs.docker.com/go/guides/
+---
 
 # Guida ai Comandi Principali di Docker
+
 
 ## 1. `docker run`
 
@@ -459,118 +380,255 @@ Un **container Docker** è un'istanza eseguibile di un'immagine Docker. I contai
 ### Conclusione
 
 In sintesi, le **immagini Docker** sono i modelli da cui vengono creati i container, contenenti tutto il necessario per eseguire un'applicazione. I **container Docker** sono le istanze eseguibili di queste immagini, che possono essere avviate, fermate, spostate e cancellate. Questa separazione tra immagine e container offre grande flessibilità e efficienza nella gestione e distribuzione delle applicazioni.
-docker-compose up
 
-## Docker run
+Docker network è una funzionalità potente di Docker che permette di gestire le reti dei container, facilitando la comunicazione tra container e il mondo esterno. Ecco una breve guida su come utilizzare le reti in Docker.
 
-Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+## Docker network
 
-Create and run a new container from an image
+### 1. Concetti Base
+- **Network Driver**: Docker utilizza diversi driver di rete per gestire la comunicazione tra i container. I più comuni sono `bridge`, `host`, `overlay`, e `macvlan`.
+- **Bridge**: Il driver predefinito che crea una rete privata interna al host per i container.
+- **Host**: Rimuove l'isolamento di rete tra i container e il sistema host.
+- **Overlay**: Collega più demoni Docker su diversi host.
+- **Macvlan**: Permette ai container di apparire come dispositivi fisici, assegnando loro indirizzi MAC.
 
-Aliases:
-  docker container run, docker run
+### 2. Gestione delle Reti
+Per gestire le reti Docker, si utilizzano comandi base come segue:
 
-Options:
-      --add-host list                    Add a custom host-to-IP mapping (host:ip)
-      --annotation map                   Add an annotation to the container (passed through to the OCI runtime) (default map[])
-  -a, --attach list                      Attach to STDIN, STDOUT or STDERR
-      --blkio-weight uint16              Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
-      --blkio-weight-device list         Block IO weight (relative device weight) (default [])
-      --cap-add list                     Add Linux capabilities
-      --cap-drop list                    Drop Linux capabilities
-      --cgroup-parent string             Optional parent cgroup for the container
-      --cgroupns string                  Cgroup namespace to use (host|private)
-                                         'host':    Run the container in the Docker host's cgroup namespace
-                                         'private': Run the container in its own private cgroup namespace
-                                         '':        Use the cgroup namespace as configured by the
-                                                    default-cgroupns-mode option on the daemon (default)
-      --cidfile string                   Write the container ID to the file
-      --cpu-period int                   Limit CPU CFS (Completely Fair Scheduler) period
-      --cpu-quota int                    Limit CPU CFS (Completely Fair Scheduler) quota
-      --cpu-rt-period int                Limit CPU real-time period in microseconds
-      --cpu-rt-runtime int               Limit CPU real-time runtime in microseconds
-  -c, --cpu-shares int                   CPU shares (relative weight)
-      --cpus decimal                     Number of CPUs
-      --cpuset-cpus string               CPUs in which to allow execution (0-3, 0,1)
-      --cpuset-mems string               MEMs in which to allow execution (0-3, 0,1)
-  -d, --detach                           Run container in background and print container ID
-      --detach-keys string               Override the key sequence for detaching a container
-      --device list                      Add a host device to the container
-      --device-cgroup-rule list          Add a rule to the cgroup allowed devices list
-      --device-read-bps list             Limit read rate (bytes per second) from a device (default [])
-      --device-read-iops list            Limit read rate (IO per second) from a device (default [])
-      --device-write-bps list            Limit write rate (bytes per second) to a device (default [])
-      --device-write-iops list           Limit write rate (IO per second) to a device (default [])
-      --disable-content-trust            Skip image verification (default true)
-      --dns list                         Set custom DNS servers
-      --dns-option list                  Set DNS options
-      --dns-search list                  Set custom DNS search domains
-      --domainname string                Container NIS domain name
-      --entrypoint string                Overwrite the default ENTRYPOINT of the image
-  -e, --env list                         Set environment variables
-      --env-file list                    Read in a file of environment variables
-      --expose list                      Expose a port or a range of ports
-      --gpus gpu-request                 GPU devices to add to the container ('all' to pass all GPUs)
-      --group-add list                   Add additional groups to join
-      --health-cmd string                Command to run to check health
-      --health-interval duration         Time between running the check (ms|s|m|h) (default 0s)
-      --health-retries int               Consecutive failures needed to report unhealthy
-      --health-start-interval duration   Time between running the check during the start period (ms|s|m|h) (default 0s)
-      --health-start-period duration     Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s)
-      --health-timeout duration          Maximum time to allow one check to run (ms|s|m|h) (default 0s)
-      --help                             Print usage
-  -h, --hostname string                  Container host name
-      --init                             Run an init inside the container that forwards signals and reaps processes
-  -i, --interactive                      Keep STDIN open even if not attached
-      --ip string                        IPv4 address (e.g., 172.30.100.104)
-      --ip6 string                       IPv6 address (e.g., 2001:db8::33)
-      --ipc string                       IPC mode to use
-      --isolation string                 Container isolation technology
-      --kernel-memory bytes              Kernel memory limit
-  -l, --label list                       Set meta data on a container
-      --label-file list                  Read in a line delimited file of labels
-      --link list                        Add link to another container
-      --link-local-ip list               Container IPv4/IPv6 link-local addresses
-      --log-driver string                Logging driver for the container
-      --log-opt list                     Log driver options
-      --mac-address string               Container MAC address (e.g., 92:d0:c6:0a:29:33)
-  -m, --memory bytes                     Memory limit
-      --memory-reservation bytes         Memory soft limit
-      --memory-swap bytes                Swap limit equal to memory plus swap: '-1' to enable unlimited swap
-      --memory-swappiness int            Tune container memory swappiness (0 to 100) (default -1)
-      --mount mount                      Attach a filesystem mount to the container
-      --name string                      Assign a name to the container
-      --network network                  Connect a container to a network
-      --network-alias list               Add network-scoped alias for the container
-      --no-healthcheck                   Disable any container-specified HEALTHCHECK
-      --oom-kill-disable                 Disable OOM Killer
-      --oom-score-adj int                Tune host's OOM preferences (-1000 to 1000)
-      --pid string                       PID namespace to use
-      --pids-limit int                   Tune container pids limit (set -1 for unlimited)
-      --platform string                  Set platform if server is multi-platform capable
-      --privileged                       Give extended privileges to this container
-  -p, --publish list                     Publish a container's port(s) to the host
-  -P, --publish-all                      Publish all exposed ports to random ports
-      --pull string                      Pull image before running ("always", "missing", "never") (default "missing")
-  -q, --quiet                            Suppress the pull output
-      --read-only                        Mount the container's root filesystem as read only
-      --restart string                   Restart policy to apply when a container exits (default "no")
-      --rm                               Automatically remove the container and its associated anonymous volumes when it exits
-      --runtime string                   Runtime to use for this container
-      --security-opt list                Security Options
-      --shm-size bytes                   Size of /dev/shm
-      --sig-proxy                        Proxy received signals to the process (default true)
-      --stop-signal string               Signal to stop the container
-      --stop-timeout int                 Timeout (in seconds) to stop a container
-      --storage-opt list                 Storage driver options for the container
-      --sysctl map                       Sysctl options (default map[])
-      --tmpfs list                       Mount a tmpfs directory
-  -t, --tty                              Allocate a pseudo-TTY
-      --ulimit ulimit                    Ulimit options (default [])
-  -u, --user string                      Username or UID (format: <name|uid>[:<group|gid>])
-      --userns string                    User namespace to use
-      --uts string                       UTS namespace to use
-  -v, --volume list                      Bind mount a volume
-      --volume-driver string             Optional volume driver for the container
-      --volumes-from list                Mount volumes from the specified container(s)
-  -w, --workdir string                   Working directory inside the container
+- **Visualizzare le reti**:
+  ```bash
+  docker network ls
+  ```
+  
+- **Creare una rete**:
+  ```bash
+  docker network create --driver <driver_name> <network_name>
+  ```
+  Dove `<driver_name>` può essere `bridge`, `overlay`, ecc., e `<network_name>` è il nome che si desidera dare alla rete.
+
+- **Ispezionare una rete**:
+  ```bash
+  docker network inspect <network_name>
+  ```
+  Fornisce informazioni dettagliate sulla configurazione della rete.
+
+- **Rimuovere una rete**:
+  ```bash
+  docker network rm <network_name>
+  ```
+  Questo comando elimina la rete specificata.
+
+- **Eliminare le reti non usate**:
+  ```bash
+  docker network prune
+  ```
+  Questo comando elimina la rete specificata.
+
+### 3. Collegare i Container alle Reti
+Per collegare i container a una rete creata, usa il comando:
+
+```bash
+docker run --network <network_name> -d --name <container_name> <image>
+```
+Dove `<network_name>` è il nome della rete a cui collegare il container, `<container_name>` è il nome da assegnare al container, e `<image>` è l'immagine da cui il container verrà creato.
+
+Per i container già in esecuzione è possibile usare il comando:
+
+```bash
+docker network connect [OPTIONS] NETWORK CONTAINER
+```
+
+### 4. Comunicazione tra Container
+I container sulla stessa rete possono comunicare tra loro usando i nomi dei container come indirizzi DNS. Per esempio, se un container chiamato `web` deve accedere a un database su un altro container chiamato `db` sulla stessa rete, può semplicemente usare il nome `db` per la connessione. Il server DNS è disponibile solo se si usano reti diverse da bridge.
+
+### 5. Debugging
+Per diagnosticare problemi di rete, Docker fornisce comandi come:
+
+- **Eseguire un ping tra i container**:
+  ```bash
+  docker exec <container_name> ping <target_container_name>
+  ```
+  Questo comando è utile per verificare la connettività tra due container.
+
+Questa guida copre i concetti essenziali per iniziare a lavorare con Docker network, fornendo le basi per configurare e gestire la comunicazione tra i container in modo efficace.
+
+## Gestione dei volumi
+
+I volumi in Docker sono un meccanismo essenziale per la gestione dei dati in applicazioni containerizzate. Offrono una soluzione per persistere i dati generati e utilizzati dai container, indipendentemente dal ciclo di vita del container stesso. Ecco una breve guida per comprendere e utilizzare i volumi in Docker.
+
+### 1. Introduzione ai Volumi Docker
+
+Un volume Docker è una directory (o un insieme di file) che viene gestita da Docker e montata all'interno di uno o più container. A differenza del volume binding, che mappa direttamente una directory dell'host a una del container, i volumi sono completamente gestiti da Docker, il che li rende più sicuri e portatili.
+
+### 2. Creare un Volume
+
+Puoi creare un volume usando il comando `docker volume create`. Questo comando crea un nuovo volume che può essere montato in uno o più container.
+
+```bash
+docker volume create mio_volume
+```
+
+### 3. Usare un Volume in un Container
+
+Per usare un volume in un container, puoi specificarlo nel comando `docker run` usando l'opzione `--mount`. Ecco un esempio:
+
+```bash
+docker run -d \
+  --name mio_container \
+  --mount source=mio_volume,target=/path/container \
+  nome_immagine
+```
+
+In questo esempio, `mio_volume` è il nome del volume che hai creato, e `/path/container` è il percorso all'interno del container dove il volume sarà accessibile.
+
+### 4. Elenca e Gestisci Volumi
+
+Per vedere un elenco di tutti i volumi su un sistema Docker, puoi usare il comando:
+
+```bash
+docker volume ls
+```
+
+Se hai bisogno di più dettagli su un particolare volume, puoi usare:
+
+```bash
+docker volume inspect nome_volume
+```
+
+### 5. Rimuovere un Volume
+
+Per rimuovere un volume non più utilizzato, è importante assicurarsi che non ci siano container attivi che lo stanno utilizzando. Dopo aver verificato, puoi rimuoverlo con:
+
+```bash
+docker volume rm nome_volume
+```
+
+### 6. Vantaggi dell'Uso dei Volumi
+
+- **Persistenza dei Dati:** I volumi assicurano che i dati importanti sopravvivano alla distruzione dei container e possano essere riutilizzati.
+- **Sicurezza:** I volumi sono gestiti e isolati da Docker, il che può aumentare la sicurezza rispetto al volume binding diretto con il file system dell'host.
+- **Portabilità:** I volumi possono essere facilmente trasferiti o clonati tra host, facilitando la migrazione e il backup.
+
+### 7. Migliori Pratiche
+
+- **Backup regolari:** Anche se i volumi sono persistenti, è importante avere strategie di backup per proteggere i dati critici.
+- **Monitoraggio dello spazio su disco:** Mantieni sotto controllo l'utilizzo dello spazio su disco per evitare di esaurirlo, soprattutto in ambienti di produzione.
+
+Con queste informazioni, dovresti essere in grado di gestire efficacemente i volumi in Docker, sfruttando la loro potenzialità per migliorare la gestione dei dati nelle tue applicazioni containerizzate.
+
+## Backup di volumi docker
+
+Effettuare il backup dei volumi Docker è cruciale per garantire la sicurezza dei dati importanti delle tue applicazioni containerizzate. Qui di seguito, ti fornisco una guida passo-passo per implementare una strategia di backup efficace per i volumi Docker.
+
+### 1. Identifica i Volumi da Fare Backup
+
+Prima di tutto, devi identificare quali volumi necessitano di backup. Puoi elencare tutti i volumi presenti sul tuo sistema con il seguente comando:
+
+```bash
+docker volume ls
+```
+
+### 2. Eseguire il Backup di un Volume
+
+#### **Opzione 1: Backup Manuale**
+
+Puoi fare un backup manuale di un volume Docker copiando i suoi dati in un'altra locazione sul sistema host o su un dispositivo di archiviazione esterno.
+
+1. **Trova il percorso del volume**: Usa il comando `docker volume inspect` per trovare il percorso effettivo del volume sul sistema host.
+
+    ```bash
+    docker volume inspect nome_volume --format '{{ .Mountpoint }}'
+    ```
+
+2. **Copia i dati**: Usa il comando `cp` o `rsync` per copiare i dati dal percorso del volume a una locazione sicura.
+
+    ```bash
+    sudo rsync -avzh /var/lib/docker/volumes/nome_volume/_data/ /percorso/backup/
+    ```
+
+#### **Opzione 2: Backup Automatico Utilizzando uno Script**
+
+Puoi automatizzare il processo di backup utilizzando uno script che esegue periodicamente il backup dei tuoi volumi.
+
+- **Crea uno script di backup**: Scrivi uno script che identifichi automaticamente tutti i volumi e ne copi i contenuti in una directory di backup. Assicurati di schedulare l'esecuzione dello script tramite cron o un altro gestore di task automatici.
+
+    Esempio di script:
+    ```bash
+    #!/bin/bash
+    backup_dir="/path/to/backup"
+
+    docker volume ls -q | while read volume; do
+        src_dir="$(docker volume inspect "$volume" --format '{{ .Mountpoint }}')"
+        dest_dir="$backup_dir/$volume"
+        mkdir -p "$dest_dir"
+        rsync -av "$src_dir/" "$dest_dir/"
+    done
+    ```
+
+    Schedula lo script con `cron`:
+    ```bash
+    # Esegui lo script ogni giorno alle 2:00 AM
+    0 2 * * * /path/to/your/script.sh
+    ```
+
+### 3. Gestire e Verificare i Backup
+
+Dopo aver implementato la tua strategia di backup, è importante gestire i file di backup e verificare periodicamente che i dati siano integri e recuperabili.
+
+- **Verifica l'integrità dei backup**: Assicurati che i dati nei backup siano completi e non corrotti. Potresti considerare di eseguire test di ripristino periodici.
+- **Rotazione dei backup**: Implementa una politica di rotazione per mantenere diverse generazioni di backup, eliminando quelli vecchi per liberare spazio.
+
+### 4. Considerazioni Finali
+
+- **Sicurezza**: Assicurati che i tuoi backup siano protetti da accessi non autorizzati, utilizzando crittografia e controlli di accesso adeguati.
+- **Cloud Storage**: Per aumentare la resilienza, considera l'opzione di memorizzare i backup su piattaforme di storage cloud, che offrono solitamente strumenti avanzati di gestione e sicurezza dei dati.
+
+Seguendo questi passaggi, puoi assicurarti di avere una strategia solida e affidabile per il backup dei tuoi volumi Docker, proteggendo così i dati critici delle tue applicazioni containerizzate.
+
+## Volume binding vs directory binding
+
+Il "volume binding" è una funzionalità di Docker che permette di mappare una directory sul sistema host in un container, rendendo possibile la condivisione e la persistenza dei dati tra l'host e il container. Questo può essere particolarmente utile per lo sviluppo di applicazioni, il testing, e la gestione di configurazioni o dati che necessitano di essere mantenuti tra diverse esecuzioni del container. Ecco una breve guida sull'uso del volume binding in Docker.
+
+### 1. Definire il Volume Binding
+
+Quando esegui un container Docker, puoi specificare un binding di volume utilizzando l'opzione `-v` o `--mount` nel comando `docker run`. L'opzione `-v` è più breve e usata comunemente, mentre `--mount` è più verbosa ma consente configurazioni più dettagliate.
+
+**Esempio con `-v`:**
+
+```bash
+docker run -v /path/host:/path/container nome_immagine
+```
+
+**Esempio con `--mount`:**
+
+```bash
+docker run --mount type=bind,source=/path/host,target=/path/container nome_immagine
+```
+
+In entrambi gli esempi, `/path/host` è il percorso della directory sul sistema host che vuoi mappare, mentre `/path/container` è il percorso all'interno del container dove la directory sarà accessibile.
+
+### 2. Scegliere tra Volume Binding e Volume Docker
+
+Il binding di un volume è diretto e mappa esattamente una directory dell'host dentro al container. I volumi Docker, d'altra parte, sono gestiti da Docker e possono essere più sicuri e portatili. Per applicazioni in produzione, è spesso preferibile utilizzare volumi Docker.
+
+**Volume Binding:**
+- Ideale per lo sviluppo e il testing.
+- Facile da configurare.
+- Dipendente dal sistema file dell'host.
+
+**Volume Docker:**
+- Gestito da Docker.
+- Migliore isolamento e sicurezza.
+- Facile da backuppare e migrare.
+
+### 3. Consigli per l'uso sicuro dei Volume Bindings
+
+- **Permessioni:** Assicurati che le permessioni dei file sul host siano correttamente impostate per prevenire accessi non autorizzati.
+- **Sicurezza:** Evita di esporre dati sensibili tramite volume binding se il sistema host è condiviso o esposto a rischi di sicurezza.
+- **Backup:** Implementa strategie di backup per i dati importanti mantenuti su volumi, dato che i dati possono essere persi se il container viene configurato erroneamente.
+
+### 4. Monitoraggio e Gestione
+
+Monitorare lo spazio su disco usato dai volumi e la loro performance è essenziale, specialmente in ambienti di produzione. Docker non pulisce automaticamente i volumi non utilizzati, quindi potrebbe essere necessario gestirli manualmente per evitare di esaurire lo spazio su disco.
+
+Con queste basi, dovresti essere in grado di utilizzare efficacemente il volume binding in Docker per sviluppare, testare e gestire le applicazioni in modo più efficace e flessibile.

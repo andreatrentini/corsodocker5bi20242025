@@ -632,3 +632,24 @@ Il binding di un volume è diretto e mappa esattamente una directory dell'host d
 Monitorare lo spazio su disco usato dai volumi e la loro performance è essenziale, specialmente in ambienti di produzione. Docker non pulisce automaticamente i volumi non utilizzati, quindi potrebbe essere necessario gestirli manualmente per evitare di esaurire lo spazio su disco.
 
 Con queste basi, dovresti essere in grado di utilizzare efficacemente il volume binding in Docker per sviluppare, testare e gestire le applicazioni in modo più efficace e flessibile.
+
+
+# Applicazione
+
+## Creazione network
+```bash
+docker network create ws-sql-net
+```
+
+## Server node
+
+Creazione del container:
+```bash
+docker run --name wsserver -d -it --network ws-sql-net -p 3000:3000 -w /app -v /workspaces/corsodocker5bi20242025/wsserver/:/app node:latest
+```
+
+## Server MySQL
+Creazione del container:
+```bash
+docker run --name sqlserver -d --network ws-sql-net -p 3310:3306 -e MYSQL_ROOT_PASSWORD=cisco mysql:latest
+```

@@ -16,9 +16,9 @@ create table users (
     cell varchar(20),
     phone varchar(20),
     email varchar(50),
-    username varchar(30),
-    password varchar(200),
-    role varchar(10)
+    username varchar(30) not null,
+    password varchar(200) not null,
+    role varchar(10) not null
 );
 
 insert into users (username, password, role) values ('admin', 'cisco', 'admin');

@@ -5,6 +5,7 @@ const config = {
         user: 'root',
         password: 'cisco',
         multipleStatements: true
-    }
+    },
+    initPassword: '12345'
 }
 module.exports = config;

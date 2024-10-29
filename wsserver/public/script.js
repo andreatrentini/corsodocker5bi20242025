@@ -1,0 +1,1 @@
+alert('Benvenuto nella guida del webservice.')

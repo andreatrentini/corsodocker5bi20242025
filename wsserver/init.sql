@@ -21,7 +21,11 @@ create table users (
     role varchar(10) not null
 );
 
-insert into users (username, password, role) values ('admin', 'cisco', 'admin');
+create table logs (
+    id int primary key not null auto_increment,
+    operation_datetime TIMESTAMP,
+    operation varchar(200),
+    user varchar(30)
+);
 
-insert into users (name, surname, address, city, zipcode, state, birthdate, cell, phone, email, username, password, role)
-values ('Andrea', 'Trentini', 'Via Craffonara, 2', 'Rovereto', '38068', 'Italy', '1968-04-08', '+39 1234567890', '+39 0464 411400', 'andrea.trentini@marconirovereto.it', 'andtrentini', 'pippo', 'user');
+insert into logs (operation_datetime, operation, user) values (now(), 'Init database', 'System'); 

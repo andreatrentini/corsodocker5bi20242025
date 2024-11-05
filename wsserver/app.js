@@ -19,12 +19,14 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: false}));
 
 // Impostiamo la nostra app in modo che sia in grado di inviare al client i file contenuti nella cartella public
-app.use(express.static('public'));
+app.use('', express.static('public'));
 
 app.post('/init', (request, response) => {
     // Recupero la password necessaria ad inizializzare il database dal body della richiesta http inviata dal client
     let clientPassword = request.body.initpassword;
-    console.log(request.body.initpassword)
+    // Recupero la password da impostare per admin
+    let adminPassword = request.body.adminpassword;
+
     if (clientPassword === config.initPassword) {
         try {
             // OK, la password è corretta
@@ -41,17 +43,45 @@ app.post('/init', (request, response) => {
             // del server in caso di istruzioni eseguite correttamente.
             connessione.query(scriptSQL, (error, data) => {
                 if (!error) {
-                    // Termino la connessione con il database
-                    // Nella funzione di callback eseguita al termina della chiusura non includo nessuna istruzione
-                    connessione.end(() => {});
-                    
-                    // Non c'è stato errore, invio al client lo status 200 con una frase che indichi la corretta
-                    // esecuzione dello script. Quando viene eseguita la funzione send, l'esecuzione del codice viene interrotta.
-                    response.status(200).send('Database inizializzato correttamente.');
+                    // Se nella richiesta http non è presente adminpassword, uso la password di default presente in config.js
+                    if (!adminPassword) {
+                        adminPassword = config.defaultAdminPassword;
+                    }
+                    // creo la versione criptata della password
+                    let cryptoAdminPassword = bcrypt.hashSync(adminPassword, config.saltRounds);
+
+                    let SQLstring = "INSERT INTO users (username, password, role) values ('admin', ?, 'admin');";
+
+                    connessione.query(SQLstring, cryptoAdminPassword, (error, data) => {
+                        if (!error) {
+                            SQLstring = "insert into logs (operation_datetime, operation, user) values (now(), 'Added admin user', 'System');"
+                            connessione.query(SQLstring, (error, data) => {
+                                if (!error) {
+                                    // Termino la connessione con il database
+                                    // Nella funzione di callback eseguita al termina della chiusura non includo nessuna istruzione
+                                    connessione.end(() => {});
+                                    
+                                    // Non c'è stato errore, invio al client lo status 200 con una frase che indichi la corretta
+                                    // esecuzione dello script. Quando viene eseguita la funzione send, l'esecuzione del codice viene interrotta.
+                                    response.status(200).send('Database inizializzato correttamente.');
+                                }
+                                else {
+                                    connessione.end(() => {});
+                                    // C'è stato un errore nella creazione del log, lo invio al client con lo status 500 (Internal server error.)
+                                    response.status(500).send(error);
+                                }
+                            })
+                        }
+                        else {
+                            connessione.end(() => {});
+                            // C'è stato un errore nella creazione dell'utente admin, lo invio al client con lo status 500 (Internal server error.)
+                            response.status(500).send(error);
+                        }
+                    })
                 }
                 else {
                     connessione.end(() => {});
-                    // C'è stato un errore, lo invio al client con lo status 500 (Internal server error.)
+                    // C'è stato un errore durante l'esecuzione dello script, lo invio al client con lo status 500 (Internal server error.)
                     response.status(500).send(error);
                 }
             })

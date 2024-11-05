@@ -6,6 +6,14 @@ const config = {
         password: 'cisco',
         multipleStatements: true
     },
-    initPassword: '12345'
+    dbParams: {
+        host: 'sqlserver',
+        user: 'root',
+        password: 'cisco',
+        database: 'corsows'
+    },
+    initPassword: '12345',
+    defaultAdminPassword: 'cisco',
+    saltRounds: 10
 }
 module.exports = config;

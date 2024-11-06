@@ -29,7 +29,11 @@ router.post('',
             if (!bcrypt.compareSync(password, result[0][0].password)) {
                 res.status(401).json({ messaggio: 'Username o password errati.' });
             }
-            const token = jwt.sign(result[0][0], config.jwtSecret, { expiresIn: 3600 });
+            const tokenData = {
+                username: result[0][0].username,
+                role: result[0][0].role
+            }
+            const token = jwt.sign(tokenData, config.jwtSecret, { expiresIn: 3600 });
             res.status(200).json({
                 tipo: 'Bearer',
                 durata: 3600,

@@ -15,10 +15,12 @@ function auth(req, res, next) {
       if (err) {
         return res.status(403).json({ messaggio: 'Token non valido.' });
       }
+      else {
+        // Aggiungi l'utente al request object
+        req.user = user;
+        next();
+      }
   
-      // Aggiungi l'utente al request object
-      req.user = user;
-      next();
     });
   }
   

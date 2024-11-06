@@ -1,0 +1,65 @@
+get http://localhost:3100
+###
+post http://127.0.0.1:3100/init
+Content-Type: application/json
+
+{
+    "initSecret": "12345", 
+    "adminPassword": "cisco"
+}
+###
+post http://127.0.0.1:3100/login
+Content-Type: application/json
+
+{
+    "username": "admin", 
+    "password": "cisco"
+}
+###
+post http://127.0.0.1:3100/login
+Content-Type: application/json
+
+{
+    "username": "andrea", 
+    "password": "cisco"
+}
+###
+get http://127.0.0.1:3100/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuZHJlYSIsInBhc3N3b3JkIjoiJDJiJDEwJDM4Ny44Zko4Vk9GTWpKYVNGVGUvbS5sWi5WNHFiemV6N25TcElSejc0Qm5ET3l2NmFSblJxIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MzA5MTQ0ODIsImV4cCI6MTczMDkxODA4Mn0.pFUAKvZDL4BB24wQhTGB_5rwOkzC7gY9BoBGk22ia0Y
+###
+get http://127.0.0.1:3100/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiIkMmIkMTAkN2FNVXNZOGc2ZExKMm5XZVVQdTJxZXp4THpiYjJUenl3M01MOVUydlNyblJyY0w3LkpoN2UiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA5MTE0OTksImV4cCI6MTczMDkxNTA5OX0.2fpHJXdZ39Wlwf3TqgbBOZ2I8u_HOLjY4oMgNBYPLHw
+###
+post http://127.0.0.1:3100/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiIkMmIkMTAkN2FNVXNZOGc2ZExKMm5XZVVQdTJxZXp4THpiYjJUenl3M01MOVUydlNyblJyY0w3LkpoN2UiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA5MTE0OTksImV4cCI6MTczMDkxNTA5OX0.2fpHJXdZ39Wlwf3TqgbBOZ2I8u_HOLjY4oMgNBYPLHw
+Content-Type: application/json
+
+{
+    "username": "andrea",
+    "password": "cisco",
+    "role": "user",
+    "name": "Andrea",
+    "birthdate": "1968-04-08",
+    "address": "Via Craffonara, 2",
+    "email": "andtrentini@gmail.com",
+    "city": "Rovereto",
+    "zipcode": "38068",
+    "surname": "Trentini",
+    "state": "TN",
+    "cell": "123456789",
+    "phone": "0464-411400"
+}
+###
+put http://127.0.0.1:3100/users/11
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiIkMmIkMTAkN2FNVXNZOGc2ZExKMm5XZVVQdTJxZXp4THpiYjJUenl3M01MOVUydlNyblJyY0w3LkpoN2UiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA5MTE0OTksImV4cCI6MTczMDkxNTA5OX0.2fpHJXdZ39Wlwf3TqgbBOZ2I8u_HOLjY4oMgNBYPLHw
+Content-Type: application/json
+
+{    
+    "name": "Administrator",
+    "password": "cisco",
+    "surname": null,
+    "id": 1
+}
+###
+delete http://127.0.0.1:3100/users/12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiIkMmIkMTAkN2FNVXNZOGc2ZExKMm5XZVVQdTJxZXp4THpiYjJUenl3M01MOVUydlNyblJyY0w3LkpoN2UiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA5MTE0OTksImV4cCI6MTczMDkxNTA5OX0.2fpHJXdZ39Wlwf3TqgbBOZ2I8u_HOLjY4oMgNBYPLHw

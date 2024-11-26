@@ -20,6 +20,7 @@ Content-Type: application/json
     "password": "cisco"
 }
 
-get http://127.0.0.1:3000/127.0.0.1:3100/users
-Authorization: Bearer SHJHDSJFSKFSFDKHSKF
+###
+get http://127.0.0.1:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFWluIiwiaWF0IjoxNzMyNjEwODQzLCJleHAiOjE3MzI2MTQ0NDN9.kkW8JhJOJ8-mRCJHdOyhy3OePsynOndvmWLtEfGsYBM
 

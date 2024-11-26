@@ -4,6 +4,7 @@ const cors = require('cors');
 
 // Caricare i router dell'applicazione
 const initRouter = require('./init')
+const loginRouter = require('./login')
 
 const config = require('./config');
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({extended: false}));
 // Impostiamo la nostra app in modo che sia in grado di inviare al client i file contenuti nella cartella public
 app.use('', express.static('public'));
 app.use('/init', initRouter);
+app.use('/login', loginRouter);
 
 const server = app.listen(config.localPort, () => {
     console.log('Server in ascolto sulla porta ' + config.localPort + '...');

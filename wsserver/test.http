@@ -10,3 +10,16 @@ Content-Type: application/json
     "initPassword": "12345",
     "adminPassword": "cisco"
 }
+
+###
+post http://127.0.0.1:3000/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "cisco"
+}
+
+get http://127.0.0.1:3000/127.0.0.1:3100/users
+Authorization: Bearer SHJHDSJFSKFSFDKHSKF
+

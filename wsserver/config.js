@@ -3,7 +3,10 @@ const config = {
     initPassword: '12345',
     saltRounds: 10,
     secretKey: 'Il teso che volete...',
-    expireInToken: 3600
+    expireInToken: 3600,
+    tables: {        
+            users: ['id', 'name', 'surname', 'address', 'city', 'zipcode', 'state', 'birthdate', 'cell', 'phone', 'email', 'username', 'password', 'role']        
+    }
 }
 
 module.exports = config;

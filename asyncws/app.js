@@ -1,6 +1,5 @@
 // Caricare tutte le librerie necessarie alla nostra applicazione
 const express = require('express');
-const bp = require('body-parser');
 const cors = require('cors');
 const rInit = require('./init');
 const rUsers = require('./users');

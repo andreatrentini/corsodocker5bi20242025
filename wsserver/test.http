@@ -22,18 +22,26 @@ Content-Type: application/json
 
 ###
 get http://127.0.0.1:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzMzMjExODczLCJleHAiOjE3MzMyMTU0NzN9.xSVpUl0GdVPaAOwujyikwZSgAREXqUWJqxhY33TxUFg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM0NDIyMTY5LCJleHAiOjE3MzQ0MjU3Njl9.ZeMyRvP48IKio-k_rphE6dP0I4fSOd0wgilNVv_9AE4
+Content-Type: application/json
 
 ###
 post http://127.0.0.1:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzMzMjE1NDkxLCJleHAiOjE3MzMyMTkwOTF9.zFIOTHlS-p6TpRuVnIAKVpC25WpiNI2OVCPFdJrcgNI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM0NDIyMTY5LCJleHAiOjE3MzQ0MjU3Njl9.ZeMyRvP48IKio-k_rphE6dP0I4fSOd0wgilNVv_9AE4
 Content-Type: application/json
 
 {
     "username": "pippo",
     "password": "pippo",
-    "role": "admin",
-    "name": "Pippo",
-    "cell": "12345678",
-    "ghgjgjgj": "hjhkhjjkhk"
+    "role": "user",
+    "ghgjgjgjh": "jkljkljl",
+    "cell": "236782482"
+}
+
+put http://127.0.0.1:3000/users/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM0NDIyMTY5LCJleHAiOjE3MzQ0MjU3Njl9.ZeMyRvP48IKio-k_rphE6dP0I4fSOd0wgilNVv_9AE4
+Content-Type: application/json
+
+{
+    "surname": "pluto"
 }

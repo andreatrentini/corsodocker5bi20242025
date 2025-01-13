@@ -24,6 +24,11 @@ function adminAuth(request, response, next) {
                 messaggio: 'Token non valido, accesso negato.'
             })
         }
+        if(data.type != ' access') {
+            return response.status(401).json({
+                messaggio: 'Token non valido, accesso negato.'
+            })
+        }
         const stringSQL = "SELECT username, role FROM users WHERE username = ? AND role = 'admin';";
 
         const [users] = await dbPool.execute(stringSQL, [data.username]);
@@ -55,6 +60,11 @@ function userAuth(request, response, next) {
 
     jwt.verify(token, config.secretKey, async (error, data) => {
         if(error) {
+            return response.status(401).json({
+                messaggio: 'Token non valido, accesso negato.'
+            })
+        }
+        if(data.type != ' access') {
             return response.status(401).json({
                 messaggio: 'Token non valido, accesso negato.'
             })

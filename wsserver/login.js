@@ -11,7 +11,7 @@ router.post('', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    if(!username || !password) {
+    if (!username || !password) {
         return res.status(400).json({
             messaggio: 'Username e password obbligatori.'
         })
@@ -21,14 +21,14 @@ router.post('', async (req, res) => {
         //2. Recupero dal database l'utente con username specificato
         const stringSQL = 'SELECT username, password, role FROM users WHERE username = ?';
         const [users] = await dbPool.execute(stringSQL, [username]);
-        if(users.length == 0) {
+        if (users.length == 0) {
             // L'utente specificato non esiste
             return res.status(401).json({
                 messaggio: 'Username non esistente.'
             })
         }
         // 3. Controllo se la password è corretta
-        if(!bcrypt.compareSync(password, users[0].password)) {
+        if (!bcrypt.compareSync(password, users[0].password)) {
             return res.status(401).json({
                 messaggio: ' Password errata.'
             })
@@ -36,18 +36,33 @@ router.post('', async (req, res) => {
 
         const datiDaIncludereNelToken = {
             username: users[0].username,
-            role: users[0].role
+            role: users[0].role,
+            type: 'access'
+        };
+        
+        const datiDaIncludereNelRefreshToken = {
+            username: users[0].username,
+            role: users[0].role,
+            type: 'refresh'
         };
 
         // 4. Creo il token Bearer
 
-        const token = jwt.sign(datiDaIncludereNelToken, config.secretKey, {expiresIn: config.expireInToken});
+        const token = jwt.sign(datiDaIncludereNelToken, config.secretKey, { expiresIn: config.expireInToken });
+        const refreshToken = jwt.sign(datiDaIncludereNelRefreshToken, config.secretKey, { expiresIn: config.expireInRefreshToken });
 
         //5. Invio il token Bearer al client
         return res.status(200).json({
-            tipo: 'Bearer',
-            expiresIn: config.expireInToken,
-            token: token
+            token: {
+                tipo: 'Bearer',
+                expiresIn: config.expireInToken,
+                token: token
+            },
+            refres_token: {
+                tipo: 'Bearer',
+                expiresIn: config.expireInRefreshToken,
+                token: refreshToken
+            },
         });
     }
     catch (error) {

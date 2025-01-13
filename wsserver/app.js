@@ -5,6 +5,7 @@ const cors = require('cors');
 // Caricare i router dell'applicazione
 const initRouter = require('./init')
 const loginRouter = require('./login')
+const refreshRouter = require('./token')
 const usersRouter = require('./users')
 
 const config = require('./config');
@@ -23,6 +24,7 @@ app.use(parseJSON);
 app.use('', express.static('public'));
 app.use('/init', initRouter);
 app.use('/login', loginRouter);
+app.use('/refresh', refreshRouter);
 app.use('/users', usersRouter);
 
 const server = app.listen(config.localPort, () => {
